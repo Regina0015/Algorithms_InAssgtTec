@@ -105,7 +105,7 @@ For `n` jobs and capacity `W`, the Dynamic Programming algorithm has a time comp
 O(nW)
 ```
 
-The one-dimensional DP array requires `O(W)` space. Additional reconstruction information is also stored to recover the selected job identifiers.
+The one-dimensional DP array requires O(W) space. The reconstruction matrix requires O(nW) additional space, so the total space complexity of this implementation is O(nW).
 
 ## Remaining Components
 
