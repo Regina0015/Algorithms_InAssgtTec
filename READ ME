@@ -1,0 +1,112 @@
+# Workload Offloading Optimization
+
+This project focuses on solving a workload offloading problem in which a primary server is operating above its available capacity. The objective is to select a group of jobs that can be moved to other servers while maximizing the total load relief without exceeding the available migration capacity.
+
+Different optimization methods are implemented and compared. This README currently includes the Dynamic Programming part of the project.
+
+## Requirements
+
+* Python 3.10 or newer
+* `matplotlib`
+
+Install the required dependency with:
+
+```bash
+pip install matplotlib
+```
+
+## Running the Project
+
+Open a terminal inside the project folder and run:
+
+```bash
+python main.py
+```
+
+The program evaluates the provided workloads using different migration capacities and returns the best load-relief value together with the identifiers of the selected jobs.
+
+## Dynamic Programming
+
+The Dynamic Programming algorithm finds the optimal combination of jobs that maximizes load relief without exceeding the capacity `W`.
+
+A one-dimensional array is used:
+
+```python
+dp = [0] * (capacity_W + 1)
+```
+
+Each position represents the best load-relief value that can be obtained for a certain capacity.
+
+Capacities are processed in descending order:
+
+```python
+for c in range(capacity_W, weight - 1, -1):
+```
+
+This is necessary to prevent the same job from being selected more than once during the same iteration.
+
+Additional bookkeeping is used to reconstruct the identifiers of the jobs that produce the optimal solution.
+
+The algorithm returns:
+
+```text
+(best_load_relief, chosen_ids)
+```
+
+## Benchmark
+
+The Dynamic Programming solver is executed at least **5 times** for every required capacity.
+
+Runtime is measured using:
+
+```python
+time.perf_counter()
+```
+
+The execution times are converted to milliseconds and the **median runtime** is used as the experimental result.
+
+Validation is performed outside the measured execution time so that it does not affect the benchmark.
+
+## Test Cases
+
+The algorithm is tested using the required capacities:
+
+```text
+20, 35, 50, 65, 80, 95, 110, 140
+```
+
+It also includes the required edge cases:
+
+```text
+W = 0
+C2 with W = 5
+```
+
+In both cases, when no job can be selected, the expected result is:
+
+```python
+(0, [])
+```
+
+## Validation
+
+The returned solution is checked to verify that:
+
+* All selected job identifiers exist.
+* No job is selected more than once.
+* The total migration cost does not exceed `W`.
+* The reported load-relief value matches the value of the selected jobs.
+
+## Complexity
+
+For `n` jobs and capacity `W`, the Dynamic Programming algorithm has a time complexity of:
+
+```text
+O(nW)
+```
+
+The one-dimensional DP array requires `O(W)` space. Additional reconstruction information is also stored to recover the selected job identifiers.
+
+## Remaining Components
+
+The complete project will also include the Greedy Heuristic, Branch-and-Bound algorithm, experimental comparisons, figures, and final benchmark results.
