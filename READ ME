@@ -55,7 +55,9 @@ The algorithm returns:
 
 ## Benchmark
 
-The Dynamic Programming solver is executed at least **5 times** for every required capacity.
+All methods executed executed at least **5 times** for every required capacity and workload. In addition, this is run in a Google Colab notebook, 
+for this reason, the only necessary action to be done is execute all of the codes at once. When you do so, four pdfs and four pngs will be generated for
+each graph. This will be located on the file folder on your left screen.
 
 Runtime is measured using:
 
